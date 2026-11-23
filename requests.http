@@ -1,0 +1,75 @@
+@baseUrl = http://localhost:3000
+@adminToken = admin-secret-token
+
+### 1. Listar usuarios
+GET {{baseUrl}}/users
+Accept: application/json
+
+### 2. Crear un nuevo usuario
+# @name createUser
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+  "name": "Maria Garcia",
+  "email": "maria@example.com"
+}
+
+@createdUserId = {{createUser.response.body._id}}
+
+### 3. Obtener usuario por ID
+GET {{baseUrl}}/users/{{createdUserId}}
+Accept: application/json
+
+### 4. Listar tareas
+GET {{baseUrl}}/tasks
+Accept: application/json
+
+### 5. Crear tarea sin cabecera de autorización
+POST {{baseUrl}}/tasks
+Content-Type: application/json
+
+{
+  "title": "Configurar pipeline CI/CD",
+  "userId": "{{createdUserId}}"
+}
+
+### 6. Crear tarea con usuario inexistente
+POST {{baseUrl}}/tasks
+Authorization: {{adminToken}}
+Content-Type: application/json
+
+{
+  "title": "Auditar dependencias",
+  "userId": "600000000000000000000000"
+}
+
+### 7. Crear tarea con propiedades adicionales
+POST {{baseUrl}}/tasks
+Authorization: {{adminToken}}
+Content-Type: application/json
+
+{
+  "title": "Revisión de infraestructura",
+  "description": "Verificar permisos de la aplicación",
+  "userId": "{{createdUserId}}",
+  "isAdmin": true,
+  "role": "superuser",
+  "internalFlag": "EXTRA_PROPERTY"
+}
+
+### 8. Crear tarea válida
+POST {{baseUrl}}/tasks
+Authorization: {{adminToken}}
+Content-Type: application/json
+
+{
+  "title": "Implementar pruebas",
+  "description": "Cobertura de tareas",
+  "userId": "{{createdUserId}}"
+}
+
+### 9. Consultar tareas con cabecera de autorización
+GET {{baseUrl}}/tasks
+Authorization: {{adminToken}}
+Accept: application/json
