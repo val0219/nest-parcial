@@ -3,7 +3,7 @@ import { HydratedDocument, Schema as MongooseSchema } from 'mongoose';
 
 export type TaskDocument = HydratedDocument<Task>;
 
-@Schema({ timestamps: true, strict: false })
+@Schema({ timestamps: true, strict: true })
 export class Task {
   @Prop({ required: true })
   title: string;
@@ -14,7 +14,7 @@ export class Task {
   @Prop({ default: false })
   completed: boolean;
 
-  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User' })
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User', required: true })
   userId: string;
 }
 
