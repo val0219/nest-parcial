@@ -64,7 +64,7 @@ API REST en NestJS y Mongoose para la gestión de **Usuarios (`/users`)** y **Ta
 
 También puedes importar `nest-parcial.postman_collection.json` en Postman o utilizar `requests.http` con la extensión REST Client de VS Code para probar manualmente los endpoints.
 
-Evidencia de funcionamiento (Parcial 2 Segunda Parte)
+## Evidencia de funcionamiento (Parcial 2 Segunda Parte)
 
 Caso 1: Propiedades no autorizadas
 
